@@ -1,0 +1,40 @@
+.header {
+  min-height: 44px;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.backButton {
+  position: absolute;
+  left: 5%;
+  cursor: pointer;
+}
+
+.lightArrow {
+  fill: #FFFFFF;
+}
+
+.darkArrow {
+  fill: #000000;
+}
+
+.logo {
+  width: 16px;
+  height: 16px;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.logoDark {
+  background-image: url("/logoBlack.png");
+}
+
+.logoLight {
+  background-image: url("/logoLight.png");
+}
+
+
+

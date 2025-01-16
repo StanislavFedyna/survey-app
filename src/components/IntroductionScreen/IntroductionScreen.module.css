@@ -1,0 +1,25 @@
+.introductionScreen {
+  background: linear-gradient(165.54deg, #141333 -33.39%, #202261 15.89%, #543C97 55.84%, #6939A2 74.96%);
+  height: 100vh;
+}
+
+.innerContentWrapper {
+  max-width: 328px;
+  margin: 0 auto;
+  color: #FBFBFF;
+  text-align: center;
+}
+
+.header {
+  font-size: 24px;
+  font-weight: 700;
+  color: #FBFBFF;
+  margin-bottom: 20px;
+}
+
+.bodyContent {
+  font-size: 14px;
+  font-weight: 400;
+  margin-bottom: 40px;
+  line-height: 25px;
+}

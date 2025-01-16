@@ -1,0 +1,1 @@
+export { questionnaireConfig } from './questionnaireConfig';
