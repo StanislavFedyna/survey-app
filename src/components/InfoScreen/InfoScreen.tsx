@@ -3,15 +3,20 @@
 import Link from 'next/link';
 
 import { Button, Header, Title } from '@/components';
+import { Questions } from '@/types';
+import { SCREEN_TYPES } from '@/constansts';
 
-import styles from './IntroductionScreen.module.css';
+import styles from './InfoScreen.module.css';
 
-interface IntroductionScreenProps {}
+interface InfoScreenProps {
+  title: Questions['title'];
+  subtitle: Questions['subtitle'];
+}
 
-export const IntroductionScreen = ({}: IntroductionScreenProps) => {
+export const InfoScreen = ({ title, subtitle }: InfoScreenProps) => {
   return (
-    <main className={styles.introductionScreen}>
-      <Header screenType="introduction" />
+    <main className={styles.infoScreen}>
+      <Header screenType={SCREEN_TYPES.INFORMATION} className={styles.header} />
 
       <section className={styles.innerContentWrapper}>
         <Title text="So how does it work?" type="light" />

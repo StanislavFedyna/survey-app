@@ -5,31 +5,33 @@ import clsx from 'clsx';
 import { router } from 'next/client';
 
 import { BackArrow } from '@/components/svgs';
+import { SCREEN_TYPES } from '@/constansts';
 
 import styles from './Header.module.css';
 
 interface HeaderProps {
-  screenType: 'single-select' | 'multi-select' | 'introduction';
+  screenType: (typeof SCREEN_TYPES)[keyof typeof SCREEN_TYPES];
+  className?: string;
 }
 
-export const Header = ({ screenType }: HeaderProps) => {
+export const Header = ({ screenType, className }: HeaderProps) => {
   const handleBackClick = () => {
     router.back();
   };
 
   return (
-    <header className={styles.header}>
+    <header className={clsx(styles.header, className)}>
       <BackArrow
         onClick={handleBackClick}
         className={clsx(
           styles.backButton,
-          screenType === 'introduction' ? styles.lightArrow : styles.darkArrow,
+          screenType === 'information' ? styles.lightArrow : styles.darkArrow,
         )}
       />
       <div
         className={clsx(
           styles.logo,
-          screenType === 'introduction' ? styles.logoLight : styles.logoDark,
+          screenType === 'information' ? styles.logoLight : styles.logoDark,
         )}
       />
     </header>

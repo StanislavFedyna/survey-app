@@ -1,0 +1,28 @@
+.singleChoiceContainer {
+  background-color: #fff0f1;
+  height: 100vh;
+}
+
+.contentWrapper {
+  width: 330px;
+  margin: 0 auto;
+  text-align: center;
+  background-color: #fff0f1;
+}
+
+.header {
+  margin-bottom: 20px;
+}
+
+.subtitle {
+  margin-bottom: 30px;
+}
+
+.options {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  gap: 20px;
+  justify-content: center;
+  margin-top: 1rem;
+}

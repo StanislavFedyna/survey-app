@@ -1,28 +1,40 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
+interface Answer {
+  questionId: string;
+  answer: string;
+}
+
 interface QuestionnaireState {
-  userAnswers: any[];
+  answers: Answer[];
 }
 
 const initialState: QuestionnaireState = {
-  userAnswers: [],
+  answers: [],
 };
 
+// Створення slice для опитувальника
 const questionnaireSlice = createSlice({
   name: 'questionnaire',
   initialState,
   reducers: {
-    setAnswer: (
-      state,
-      action: PayloadAction<{ questionId: string; answer: string }>,
-    ) => {
-      console.log('setAnswer');
+    saveAnswer: (state, action: PayloadAction<Answer>) => {
+      const existingAnswerIndex = state.answers.findIndex(
+        (a) => a.questionId === action.payload.questionId,
+      );
 
-      state.userAnswers[action.payload.questionId] = action.payload.answer;
+      if (existingAnswerIndex >= 0) {
+        state.answers[existingAnswerIndex] = action.payload;
+      } else {
+        state.answers.push(action.payload);
+      }
+    },
+    clearAnswers: (state) => {
+      state.answers = [];
     },
   },
 });
 
-export const { setAnswer } = questionnaireSlice.actions;
+export const { saveAnswer, clearAnswers } = questionnaireSlice.actions;
 
 export default questionnaireSlice.reducer;

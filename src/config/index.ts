@@ -1,1 +1,1 @@
-export { questionnaireConfig } from './questionnaireConfig';
+export * as questionnaireConfig from './questionnaireConfig.json';

@@ -7,7 +7,7 @@ const nextConfig: NextConfig = {
     return [
       {
         source: '/',
-        destination: '/questions/1',
+        destination: '/questions.ts/1',
         permanent: false,
       },
     ];
