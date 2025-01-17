@@ -7,6 +7,6 @@ interface SubtitleProps {
   className?: string;
 }
 
-export const Subtitle = ({ text, className }: SubtitleProps) => {
-  return <h2 className={clsx(styles.title, className)}>{text}</h2>;
-};
+export const Subtitle = ({ text, className }: SubtitleProps) => (
+  <h2 className={clsx(styles.title, className)}>{text}</h2>
+);

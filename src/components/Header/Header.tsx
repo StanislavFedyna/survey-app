@@ -3,9 +3,9 @@
 import clsx from 'clsx';
 
 import { BackArrow } from '@/components/svgs';
+import { Question } from '@/types';
 
 import styles from './Header.module.css';
-import { Question } from '@/types';
 
 interface HeaderProps {
   screenType: Question['screenType'];
@@ -19,26 +19,22 @@ export const Header = ({
   className,
   onBack,
   showBackIcon,
-}: HeaderProps) => {
-  console.log(showBackIcon);
-
-  return (
-    <header className={clsx(styles.header, className)}>
-      {showBackIcon && (
-        <BackArrow
-          onClick={onBack}
-          className={clsx(
-            styles.backButton,
-            screenType === 'information' ? styles.lightArrow : styles.darkArrow,
-          )}
-        />
-      )}
-      <div
+}: HeaderProps) => (
+  <header className={clsx(styles.header, className)}>
+    {showBackIcon && (
+      <BackArrow
+        onClick={onBack}
         className={clsx(
-          styles.logo,
-          screenType === 'information' ? styles.logoLight : styles.logoDark,
+          styles.backButton,
+          screenType === 'information' ? styles.lightArrow : styles.darkArrow,
         )}
       />
-    </header>
-  );
-};
+    )}
+    <div
+      className={clsx(
+        styles.logo,
+        screenType === 'information' ? styles.logoLight : styles.logoDark,
+      )}
+    />
+  </header>
+);

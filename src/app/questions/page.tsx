@@ -6,7 +6,6 @@ import { Questions } from '@/types';
 import { SCREEN_TYPES } from '@/constansts';
 import { InfoScreen, Results, SingleChoice } from '@/components';
 import { usePoll } from '@/hooks';
-import { replacePlaceholders } from '@/utils';
 
 export const questions: Questions = [
   {
@@ -387,28 +386,15 @@ export const questions: Questions = [
 ];
 
 const Page = () => {
-  const {
-    currentStep,
-    proceed,
-    back,
-    isFinished,
-    reset,
-    isFirstQuestion,
-    getAnswer,
-  } = usePoll();
-
-  // const processedQuestion = replacePlaceholders(currentStep.question, getAnswer(currentStep.id));
-
+  const { currentStep, proceed, back, isFinished, reset, isFirstQuestion } =
+    usePoll();
 
   if (isFinished) return <Results onReset={reset} />;
 
   if (currentStep.screenType === SCREEN_TYPES.SINGLE_CHOICE) {
     return (
       <SingleChoice
-        step={{
-          ...currentStep,
-          question:
-        }}
+        step={currentStep}
         isFirstQuestion={isFirstQuestion}
         onNext={proceed}
         onBack={back}

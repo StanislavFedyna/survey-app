@@ -6,8 +6,3 @@ export const Answer = ({ question, answer }) => (
     <p className={styles.answer}>{answer}</p>
   </article>
 );
-
-// <div key={index} className={styles.answerItem}>
-//   <div className={styles.question}>{question.question}</div>
-//   <div className={styles.answer}>{answers[question.id]}</div>
-// </div>;

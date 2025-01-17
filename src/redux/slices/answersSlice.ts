@@ -13,7 +13,6 @@ const answersSlice = createSlice({
       action: PayloadAction<{ stepId: string; answerValue: string }>,
     ) => {
       const { stepId, answerValue } = action.payload;
-      console.log('x', stepId, answerValue);
 
       state[stepId] = answerValue;
     },

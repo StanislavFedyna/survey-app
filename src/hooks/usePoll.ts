@@ -1,10 +1,16 @@
 import { useState } from 'react';
+
 import { useAppDispatch } from '@/redux/hooks';
-import { useAnswers } from '@/hooks/useAnswers';
+import { useAnswers } from '@/hooks';
 import { areConditionsMet } from '@/utils';
 import { resetAnswers, setAnswer } from '@/redux/slices/answersSlice';
-import { questions } from '@/app/sample/page';
+import { questions } from '@/app/questions/page';
 
+/**
+ * Custom hook to manage the state and logic of a poll.
+ *
+ * @returns {object} - An object containing the current step, navigation functions, and poll state.
+ */
 export const usePoll = () => {
   const [prevSteps, setPrevSteps] = useState<number[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);

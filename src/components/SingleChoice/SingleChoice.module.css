@@ -1,6 +1,9 @@
 .singleChoiceContainer {
   background-color: var(--color-light-pink);
   height: 100%;
+
+  /*background-color: blue;*/
+  min-height: 100vh;
 }
 
 .contentWrapper {

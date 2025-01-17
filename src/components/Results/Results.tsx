@@ -1,35 +1,40 @@
 import { useAnswers } from '@/hooks';
-import styles from './Results.module.css';
-import { questions } from '@/app/sample/page';
+import { questions } from '@/app/questions/page';
 import { AnimationContainer, Button } from '@/components';
+
+import styles from './Results.module.css';
 
 interface ResultsProps {
   onReset: () => void;
 }
 
-export const Results = ({ onReset }, ResultsProps) => {
+export const Results = ({ onReset }: ResultsProps) => {
   const answers = useAnswers();
+
+  const filteredQuestions = questions.filter(
+    (question) => answers[question.id],
+  );
 
   return (
     <main className={styles.results}>
       <h1 className={styles.title}>Results 🎉</h1>
+
       <AnimationContainer uniqueKey="results">
         <div className={styles.answersList}>
-          {questions
-            .filter((question) => answers[question.id])
-            .map((question, index) => {
-              const answerId = answers[question.id];
-              const answerLabel = question.options.find(
-                (option) => option.value === answerId,
-              )?.label;
+          {filteredQuestions.map((question, index) => {
+            const answerId = answers[question.id];
 
-              return (
-                <div key={index} className={styles.answerItem}>
-                  <div className={styles.question}>{question.question}</div>
-                  <div className={styles.answer}>{answerLabel}</div>
-                </div>
-              );
-            })}
+            const answerLabel = question.options.find(
+              (option) => option.value === answerId,
+            )?.label;
+
+            return (
+              <div key={index} className={styles.answerItem}>
+                <div className={styles.question}>{question.question}</div>
+                <div className={styles.answer}>{answerLabel}</div>
+              </div>
+            );
+          })}
         </div>
       </AnimationContainer>
 
