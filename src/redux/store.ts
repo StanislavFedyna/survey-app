@@ -1,13 +1,11 @@
-import { combineReducers, configureStore } from '@reduxjs/toolkit';
-import questionnaireReducer from './slices/questionnaireSlice';
-
-const rootReducer = combineReducers({
-  questionnaire: questionnaireReducer,
-});
+import { configureStore } from '@reduxjs/toolkit';
+import answersReducer from './slices/answersSlice';
 
 export const makeStore = () => {
   return configureStore({
-    reducer: rootReducer,
+    reducer: {
+      answers: answersReducer,
+    },
   });
 };
 

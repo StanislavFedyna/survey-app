@@ -1,0 +1,424 @@
+'use client';
+
+import React from 'react';
+
+import { Questions } from '@/types';
+import { SCREEN_TYPES } from '@/constansts';
+import { InfoScreen, Results, SingleChoice } from '@/components';
+import { usePoll } from '@/hooks';
+import { replacePlaceholders } from '@/utils';
+
+export const questions: Questions = [
+  {
+    id: 'step1',
+    screenType: 'single-choice',
+    question: 'Select your gender:',
+    options: [
+      {
+        value: 'step1_op1',
+        label: 'Female',
+      },
+      {
+        value: 'step2_op2',
+        label: 'Male',
+      },
+    ],
+  },
+  {
+    id: 'step2',
+    screenType: 'single-choice',
+    question:
+      'So we can get to know you better, tell us about your relationship status.',
+    options: [
+      {
+        value: 'step2_op1',
+        label: 'Single',
+      },
+      {
+        value: 'step2_op2',
+        label: 'In a relationship',
+      },
+    ],
+  },
+
+  {
+    id: 'step3',
+    screenType: 'single-choice',
+    conditions: {
+      step2: 'step2_op1',
+    },
+    question: 'Are you a single parent?',
+    options: [
+      {
+        value: 'step3_op1',
+        label: 'Yes',
+      },
+      {
+        value: 'step3_op2',
+        label: 'No',
+      },
+    ],
+  },
+  {
+    id: 'step4',
+    screenType: 'single-choice',
+    question:
+      'Single {gender} {who have children (if have children)} need a slightly different approach to improve their relationship. Which statement best describes you?',
+    conditions: {
+      step2: 'step2_op1',
+    },
+    options: [
+      {
+        value: 'step4_op1',
+        label: 'I’m very unhappy with how things are going in my relationship',
+      },
+      {
+        value: 'step4_op2',
+        label:
+          'I’m unhappy with parts of my relationship, but some things are working well',
+      },
+      {
+        value: 'step4_op3',
+        label: 'I’m generally happy in my relationship',
+      },
+    ],
+  },
+
+  {
+    id: 'step5',
+    screenType: 'single-choice',
+    question: 'Do you tend to overthink?',
+    conditions: {
+      step2: 'step2_op1',
+    },
+    options: [
+      {
+        value: 'step5_op1',
+        label: 'Yes',
+      },
+      {
+        value: 'step5_op2',
+        label: 'No',
+      },
+    ],
+  },
+
+  {
+    id: 'info1',
+    screenType: 'information',
+    question: 'So how does it work?',
+    subContent:
+      'We analyze hundreds of data points to create your unique astrological blueprint. This is combined with AI to tailor-make your astrological insights, based on your answers. We’re going to change your relationship with astrology.',
+    conditions: {
+      step2: 'step2_op1',
+    },
+    options: [
+      {
+        value: 'info1_op1',
+        label: 'Next',
+      },
+    ],
+  },
+
+  {
+    id: 'step6',
+    screenType: 'single-choice',
+    question: 'What is most important to you?',
+    conditions: {
+      step2: 'step2_op1',
+      step5: 'step5_op1',
+    },
+    options: [
+      {
+        value: 'step6_op1',
+        label: 'Success',
+      },
+      {
+        value: 'step6_op2',
+        label: 'Romance',
+      },
+      {
+        value: 'step6_op3',
+        label: 'Stability',
+      },
+      {
+        value: 'step6_op4',
+        label: 'Freedom',
+      },
+    ],
+  },
+  {
+    id: 'step7',
+    screenType: 'single-choice',
+    question: 'Is emotional control tricky for you?',
+    conditions: {
+      step2: 'step2_op1',
+      step5: 'step5_op2',
+    },
+    options: [
+      {
+        value: 'step7_op1',
+        label: 'Yes',
+      },
+      {
+        value: 'step7_op2',
+        label: 'Sometimes',
+      },
+      {
+        value: 'step7_op3',
+        label: 'Rarely',
+      },
+      {
+        value: 'step7_op4',
+        label: 'Not at all',
+      },
+    ],
+  },
+  {
+    id: 'step8',
+    screenType: 'single-choice',
+    question: 'Are you a parent?',
+    conditions: {
+      step2: 'step2_op2',
+    },
+    options: [
+      {
+        value: 'step8_op1',
+        label: 'Yes',
+      },
+      {
+        value: 'step8_op2',
+        label: 'No',
+      },
+    ],
+  },
+  {
+    id: 'step9',
+    screenType: 'single-choice',
+    question:
+      '{Gender} {who have children (if have children)} need a slightly different approach to find their perfect partner. But first, how did you feel in your last relationship?',
+    conditions: {
+      step2: 'step2_op2',
+    },
+    options: [
+      {
+        value: 'step9_op1',
+        label: 'I was unhappy with low things were going in my relationship',
+      },
+      {
+        value: 'step9_op2',
+        label:
+          'I was unhappy with parts of my relationship, but some thing were working',
+      },
+      {
+        value: 'step9_op3',
+        label: 'I was generally happy with my relationship',
+      },
+      {
+        value: 'step9_op4',
+        label: 'I’ve never been in a relationship',
+      },
+    ],
+  },
+  {
+    id: 'step10',
+    screenType: 'single-choice',
+    question: 'Is your partner an introvert or extrovert?',
+    conditions: {
+      step2: 'step2_op2',
+    },
+    options: [
+      {
+        value: 'step10_op1',
+        label: 'Introvert',
+      },
+      {
+        value: 'step10_op2',
+        label: 'Extrovert',
+      },
+      {
+        value: 'step10_op3',
+        label: 'A bit of both',
+      },
+    ],
+  },
+  {
+    id: 'step11',
+    screenType: 'single-choice',
+    question: 'What is your partner’s gender?',
+    conditions: {
+      step2: 'step2_op2',
+    },
+    options: [
+      {
+        value: 'step11_op1',
+        label: 'Male',
+      },
+      {
+        value: 'step11_op2',
+        label: 'Female',
+      },
+    ],
+  },
+  {
+    id: 'step12',
+    screenType: 'single-choice',
+    question: 'Do you agree with the statement below?',
+    subContent: '“My partner and I make sex a priority in our relationship”',
+    conditions: {
+      step2: 'step2_op2',
+    },
+    options: [
+      {
+        value: 'step12_op1',
+        label: 'Strongly agree',
+      },
+      {
+        value: 'step12_op2',
+        label: 'Agree',
+      },
+      {
+        value: 'step12_op3',
+        label: 'Neutral',
+      },
+      {
+        value: 'step12_op4',
+        label: 'Disagee',
+      },
+      {
+        value: 'step12_op5',
+        label: 'Strongly disagree',
+      },
+    ],
+  },
+  {
+    id: 'step13',
+    screenType: 'single-choice',
+    question: 'When you think about your relationship goals, you feel...?',
+    conditions: {
+      step2: 'step2_op2',
+    },
+    options: [
+      {
+        value: 'step13_op1',
+        label: 'Optimistic! They are totally doable, with some guidance.',
+      },
+      {
+        value: 'step13_op2',
+        label: 'Cautious. I’ve struggled before, but I’m hopeful.',
+      },
+      {
+        value: 'step13_op3',
+        label: 'I’m feeling a little anxious, honestly.',
+      },
+    ],
+  },
+  {
+    id: 'finalStep',
+    screenType: 'single-choice',
+    question: 'Where did you hear about us?',
+    options: [
+      {
+        value: 'final_op1',
+        label: 'Poster or Billboard',
+      },
+      {
+        value: 'final_op2',
+        label: 'Friend or Family',
+      },
+      {
+        value: 'final_op3',
+        label: 'Instagram',
+      },
+      {
+        value: 'final_op4',
+        label: 'Direct Mail or Package Insert',
+      },
+      {
+        value: 'final_op5',
+        label: 'Online TV or Streaming TV',
+      },
+      {
+        value: 'final_op6',
+        label: 'TV',
+      },
+      {
+        value: 'final_op7',
+        label: 'Radio',
+      },
+      {
+        value: 'final_op8',
+        label: 'Search Engine (Google, Bing, etc.)',
+      },
+      {
+        value: 'final_op9',
+        label: 'Newspaper or Magazine',
+      },
+      {
+        value: 'final_op10',
+        label: 'Facebook',
+      },
+      {
+        value: 'final_op11',
+        label: 'Blog Post or Website Review',
+      },
+      {
+        value: 'final_op12',
+        label: 'Podcast',
+      },
+      {
+        value: 'final_op13',
+        label: 'Influencer',
+      },
+      {
+        value: 'final_op14',
+        label: 'Youtube',
+      },
+      {
+        value: 'final_op15',
+        label: 'Pinterest',
+      },
+      {
+        value: 'final_op16',
+        label: 'Other',
+      },
+    ],
+  },
+];
+
+const Page = () => {
+  const {
+    currentStep,
+    proceed,
+    back,
+    isFinished,
+    reset,
+    isFirstQuestion,
+    getAnswer,
+  } = usePoll();
+
+  // const processedQuestion = replacePlaceholders(currentStep.question, getAnswer(currentStep.id));
+
+
+  if (isFinished) return <Results onReset={reset} />;
+
+  if (currentStep.screenType === SCREEN_TYPES.SINGLE_CHOICE) {
+    return (
+      <SingleChoice
+        step={{
+          ...currentStep,
+          question:
+        }}
+        isFirstQuestion={isFirstQuestion}
+        onNext={proceed}
+        onBack={back}
+      />
+    );
+  }
+
+  if (currentStep.screenType === SCREEN_TYPES.INFORMATION) {
+    return <InfoScreen step={currentStep} />;
+  }
+};
+
+export default Page;

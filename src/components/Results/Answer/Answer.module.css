@@ -1,0 +1,14 @@
+.answer {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem;
+  border-bottom: 1px solid #ccc;
+}
+
+.question {
+  font-weight: bold;
+}
+
+.answer {
+  color: #555;
+}

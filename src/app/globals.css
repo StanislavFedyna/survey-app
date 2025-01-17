@@ -1,3 +1,23 @@
+:root {
+  --color-light-gray: #E0E0E0;
+  --color-light-blue: #EAEEF7;
+  --color-purple-transparent: #543C9740;
+  --color-gray-blue: #DADFE8;
+  --color-purple: #543C97;
+  --color-white: #FFFFFF;
+  --color-black: #000000;
+  --color-off-white: #FBFBFF;
+  --color-light-pink: #fff0f1;
+  --color-dark-gray: #333333;
+
+  --fw-700: 700;
+  --fw-400: 400;
+}
+
+html {
+  font-size: 62.5%;
+}
+
 body {
   font-family: 'Open Sans', sans-serif;
   margin: 0;

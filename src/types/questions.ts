@@ -1,11 +1,17 @@
-export interface Questions {
-  id: string;
-  title: string;
-  subtitle?: string;
-  screenType: string;
-  options: string[];
-}
+export type Option = {
+  value: string;
+  label: string;
+};
 
-export interface QuestionnaireConfig {
-  questions: Questions[];
-}
+export type Question = {
+  id: string;
+  screenType: string;
+  question: string;
+  options: Option[];
+  conditions?: Record<string, string>;
+  subContent?: string;
+};
+
+export type Questions = Question[];
+
+export type Answers = Record<string, string>;

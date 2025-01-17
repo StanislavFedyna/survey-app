@@ -1,46 +1,58 @@
 'use client';
 
-import { Title, Button, Subtitle, Header } from '@/components';
+import {
+  Title,
+  Button,
+  Subtitle,
+  Header,
+  AnimationContainer,
+} from '@/components';
 import { SCREEN_TYPES } from '@/constansts';
-import { useAnswers } from '@/hooks';
-import { Questions } from '@/types';
+
+import { Question } from '@/types';
 
 import styles from './SingleChoice.module.css';
 
 interface SingleChoice {
-  title: Questions['title'];
-  subtitle?: Questions['subtitle'];
-  options: Questions['options'];
+  step: Question;
+  onNext: (stepId: string, answerValue: string) => void;
+  onBack: () => void;
+  isFirstQuestion: boolean;
 }
 
 export const SingleChoice = ({
-  title,
-  subtitle,
-  options,
-  onAnswerSelect,
+  step,
+  isFirstQuestion,
+  onNext,
+  onBack,
 }: SingleChoice) => {
-  const answers = useAnswers();
+  const { question, subContent, options, id } = step;
 
   return (
     <main className={styles.singleChoiceContainer}>
       <Header
         screenType={SCREEN_TYPES.SINGLE_CHOICE}
         className={styles.header}
+        onBack={onBack}
+        showBackIcon={!isFirstQuestion}
       />
+      <AnimationContainer uniqueKey={id}>
+        <div className={styles.contentWrapper}>
+          <Title text={question} type="dark" />
 
-      <div className={styles.contentWrapper}>
-        <Title text={title} type="dark" />
+          {subContent && (
+            <Subtitle text={subContent} className={styles.subtitle} />
+          )}
 
-        {subtitle && <Subtitle text={subtitle} className={styles.subtitle} />}
-
-        <div className={styles.options}>
-          {options?.map((option, index) => (
-            <Button key={index} onClick={() => onAnswerSelect(option)}>
-              {option}
-            </Button>
-          ))}
+          <div className={styles.options}>
+            {options?.map((option, index) => (
+              <Button key={index} onClick={() => onNext(id, option.value)}>
+                {option.label}
+              </Button>
+            ))}
+          </div>
         </div>
-      </div>
+      </AnimationContainer>
     </main>
   );
 };

@@ -13,11 +13,11 @@
 }
 
 .lightArrow {
-  fill: #FFFFFF;
+  fill: var(--color-white);
 }
 
 .darkArrow {
-  fill: #000000;
+  fill: var(--color-black);
 }
 
 .logo {

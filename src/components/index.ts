@@ -5,5 +5,6 @@ export { Subtitle } from './Subtitle/Subtitle';
 export { SingleChoice } from './SingleChoice/SingleChoice';
 export { InfoScreen } from './InfoScreen/InfoScreen';
 export { Results } from './Results/Results';
+export { AnimationContainer } from './AnimationContainer/AnimationContainer';
 
 export { BackArrow } from './svgs';

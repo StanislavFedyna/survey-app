@@ -1,39 +1,338 @@
-{
-  "questions": [
-    {
-      "id": "1",
-      "title": "What is your gender?",
-      "subtitle": "some subtitle",
-      "screenType": "single-choice",
-      "options": [
-        "Male",
-        "Female",
-        "Other"
-      ]
+[
+  {
+    "id": "step1",
+    "questions": "Select your gender:",
+    "options": [
+      {
+        "value": "step1_op1",
+        "label": "Female"
+      },
+      {
+        "value": "step2_op2",
+        "label": "Male"
+      }
+    ]
+  },
+  {
+    "id": "step2",
+    "questions": "So we can get to know you better, tell us about your relationship status.",
+    "options": [
+      {
+        "value": "step2_op1",
+        "label": "Single"
+      },
+      {
+        "value": "step2_op2",
+        "label": "In a relationship"
+      }
+    ]
+  },
+  {
+    "id": "step3",
+    "conditions": {
+      "step2": "step2_op1"
     },
-    {
-      "id": "2",
-      "title": "How old are you?",
-      "screenType": "information",
-      "condition": "answers[1] !== undefined"
+    "questions": "Are you a single parent?",
+    "options": [
+      {
+        "value": "step3_op1",
+        "label": "Yes"
+      },
+      {
+        "value": "step3_op2",
+        "label": "No"
+      }
+    ]
+  },
+  {
+    "id": "step4",
+    "questions": "Single {gender} {who have children (if have children)} need a slightly different approach to improve their relationship. Which statement best describes you?",
+    "conditions": {
+      "step2": "step2_op1"
     },
-    {
-      "id": "3",
-      "title": "What is your favorite color?",
-      "screenType": "input",
-      "options": [
-        "Red",
-        "Blue",
-        "Green",
-        "Other"
-      ],
-      "condition": "answers[2] !== undefined"
+    "options": [
+      {
+        "value": "step4_op1",
+        "label": "I’m very unhappy with how things are going in my relationship"
+      },
+      {
+        "value": "step4_op2",
+        "label": "I’m unhappy with parts of my relationship, but some things are working well"
+      },
+      {
+        "value": "step4_op3",
+        "label": "I’m generally happy in my relationship"
+      }
+    ]
+  },
+  {
+    "id": "step5",
+    "questions": "Do you tend to overthink?",
+    "conditions": {
+      "step2": "step2_op1"
     },
-    {
-      "id": "5",
-      "title": "Thank you for completing the survey!",
-      "screenType": "results",
-      "condition": "answers[1] !== undefined && answers[2] !== undefined && (answers[3] !== 'Other' || answers[4] !== undefined)"
-    }
-  ]
-}
+    "options": [
+      {
+        "value": "step5_op1",
+        "label": "Yes"
+      },
+      {
+        "value": "step5_op2",
+        "label": "No"
+      }
+    ]
+  },
+  {
+    "id": "step6",
+    "questions": "What is most important to you?",
+    "conditions": {
+      "step2": "step2_op1",
+      "step5": "step5_op1"
+    },
+    "options": [
+      {
+        "value": "step6_op1",
+        "label": "Success"
+      },
+      {
+        "value": "step6_op2",
+        "label": "Romance"
+      },
+      {
+        "value": "step6_op3",
+        "label": "Stability"
+      },
+      {
+        "value": "step6_op4",
+        "label": "Freedom"
+      }
+    ]
+  },
+  {
+    "id": "step7",
+    "questions": "Is emotional control tricky for you?",
+    "conditions": {
+      "step2": "step2_op1",
+      "step5": "step5_op2"
+    },
+    "options": [
+      {
+        "value": "step7_op1",
+        "label": "Yes"
+      },
+      {
+        "value": "step7_op2",
+        "label": "Sometimes"
+      },
+      {
+        "value": "step7_op3",
+        "label": "Rarely"
+      },
+      {
+        "value": "step7_op4",
+        "label": "Not at all"
+      }
+    ]
+  },
+  {
+    "id": "step8",
+    "questions": "Are you a parent?",
+    "conditions": {
+      "step2": "step2_op2"
+    },
+    "options": [
+      {
+        "value": "step8_op1",
+        "label": "Yes"
+      },
+      {
+        "value": "step8_op2",
+        "label": "No"
+      }
+    ]
+  },
+  {
+    "id": "step9",
+    "questions": "{Gender} {who have children (if have children)} need a slightly different approach to find their perfect partner. But first, how did you feel in your last relationship?",
+    "conditions": {
+      "step2": "step2_op2"
+    },
+    "options": [
+      {
+        "value": "step9_op1",
+        "label": "I was unhappy with low things were going in my relationship"
+      },
+      {
+        "value": "step9_op2",
+        "label": "I was unhappy with parts of my relationship, but some thing were working"
+      },
+      {
+        "value": "step9_op3",
+        "label": "I was generally happy with my relationship"
+      },
+      {
+        "value": "step9_op4",
+        "label": "I’ve never been in a relationship"
+      }
+    ]
+  },
+  {
+    "id": "step10",
+    "questions": "Is your partner an introvert or extrovert?",
+    "conditions": {
+      "step2": "step2_op2"
+    },
+    "options": [
+      {
+        "value": "step10_op1",
+        "label": "Introvert"
+      },
+      {
+        "value": "step10_op2",
+        "label": "Extrovert"
+      },
+      {
+        "value": "step10_op3",
+        "label": "A bit of both"
+      }
+    ]
+  },
+  {
+    "id": "step11",
+    "questions": "What is your partner’s gender?",
+    "conditions": {
+      "step2": "step2_op2"
+    },
+    "options": [
+      {
+        "value": "step11_op1",
+        "label": "Male"
+      },
+      {
+        "value": "step11_op2",
+        "label": "Female"
+      }
+    ]
+  },
+  {
+    "id": "step12",
+    "questions": "Do you agree with the statement below?",
+    "subContent": "“My partner and I make sex a priority in our relationship”",
+    "conditions": {
+      "step2": "step2_op2"
+    },
+    "options": [
+      {
+        "value": "step12_op1",
+        "label": "Strongly agree"
+      },
+      {
+        "value": "step12_op2",
+        "label": "Agree"
+      },
+      {
+        "value": "step12_op3",
+        "label": "Neutral"
+      },
+      {
+        "value": "step12_op4",
+        "label": "Disagee"
+      },
+      {
+        "value": "step12_op5",
+        "label": "Strongly disagree"
+      }
+    ]
+  },
+  {
+    "id": "step13",
+    "questions": "When you think about your relationship goals, you feel...?",
+    "conditions": {
+      "step2": "step2_op2"
+    },
+    "options": [
+      {
+        "value": "step13_op1",
+        "label": "Optimistic! They are totally doable, with some guidance."
+      },
+      {
+        "value": "step13_op2",
+        "label": "Cautious. I’ve struggled before, but I’m hopeful."
+      },
+      {
+        "value": "step13_op3",
+        "label": "I’m feeling a little anxious, honestly."
+      }
+    ]
+  },
+  {
+    "id": "finalStep",
+    "questions": "Where did you hear about us?",
+    "options": [
+      {
+        "value": "final_op1",
+        "label": "Poster or Billboard"
+      },
+      {
+        "value": "final_op2",
+        "label": "Friend or Family"
+      },
+      {
+        "value": "final_op3",
+        "label": "Instagram"
+      },
+      {
+        "value": "final_op4",
+        "label": "Direct Mail or Package Insert"
+      },
+      {
+        "value": "final_op5",
+        "label": "Online TV or Streaming TV"
+      },
+      {
+        "value": "final_op6",
+        "label": "TV"
+      },
+      {
+        "value": "final_op7",
+        "label": "Radio"
+      },
+      {
+        "value": "final_op8",
+        "label": "Search Engine (Google, Bing, etc.)"
+      },
+      {
+        "value": "final_op9",
+        "label": "Newspaper or Magazine"
+      },
+      {
+        "value": "final_op10",
+        "label": "Facebook"
+      },
+      {
+        "value": "final_op11",
+        "label": "Blog Post or Website Review"
+      },
+      {
+        "value": "final_op12",
+        "label": "Podcast"
+      },
+      {
+        "value": "final_op13",
+        "label": "Influencer"
+      },
+      {
+        "value": "final_op14",
+        "label": "Youtube"
+      },
+      {
+        "value": "final_op15",
+        "label": "Pinterest"
+      },
+      {
+        "value": "final_op16",
+        "label": "Other"
+      }
+    ]
+  }
+]

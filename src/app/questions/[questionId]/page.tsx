@@ -11,9 +11,9 @@ export const getStaticPaths: GetStaticPaths = async () => {
   return { paths, fallback: false };
 };
 
-async function getQuestionByPage(id) {
-  return questionnaireConfig.questions.find((q) => q.id === id);
-}
+// async function getQuestionByPage(id) {
+//   return questionnaireConfig.questions.find((q) => q.id === id);
+// }
 
 interface QuestionPageProps {
   params: Promise<{ id: string }>;
@@ -23,7 +23,7 @@ const QuestionPage = async ({ params }: QuestionPageProps) => {
   const { questionId } = await params;
   // TODO as some type balow
   // console.log(question);
-  const currentQuestion = await getQuestionByPage(questionId);
+  // const currentQuestion = await getQuestionByPage(questionId);
 
   // console.log('dsdsdsd', res);
 
@@ -53,9 +53,6 @@ const QuestionPage = async ({ params }: QuestionPageProps) => {
         title={currentQuestion.title}
         subtitle={currentQuestion.subtitle}
         options={currentQuestion.options}
-        // onAnswerSelect={() => {
-        //   console.log('select!');
-        // }}
       />
     );
   }

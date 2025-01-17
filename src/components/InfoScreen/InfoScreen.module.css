@@ -4,26 +4,26 @@
 }
 
 .header {
-  margin-bottom: 20px;
+  margin-bottom: 2rem;
 }
 
 .innerContentWrapper {
   max-width: 328px;
   margin: 0 auto;
-  color: #FBFBFF;
+  color: var(--color-off-white);
   text-align: center;
 }
 
 .header {
-  font-size: 24px;
-  font-weight: 700;
-  color: #FBFBFF;
-  margin-bottom: 20px;
+  font-size: 2.4rem;
+  font-weight: var(--fw-700);
+  color: var(--color-off-white);
+  margin-bottom: 2rem;
 }
 
 .bodyContent {
-  font-size: 14px;
-  font-weight: 400;
-  margin-bottom: 40px;
+  font-size: 1.4rem;
+  font-weight: var(--fw-400);
+  margin-bottom: 4rem;
   line-height: 25px;
 }

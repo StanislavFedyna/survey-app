@@ -1,1 +1,1 @@
-export { QuestionnaireConfig, Questions } from './questions';
+export { Option, Questions, Question, Answers } from './questions';
