@@ -1,5 +1,5 @@
 import { useAppSelector } from '@/redux/hooks';
-import { Answers } from '@/types';
+import { Answer } from '@/types';
 
-export const useAnswers = (): Answers =>
+export const useAnswers = (): Answer =>
   useAppSelector((state) => state.answers);

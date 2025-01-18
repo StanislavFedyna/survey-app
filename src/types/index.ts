@@ -1,1 +1,1 @@
-export { Option, Questions, Question, Answers } from './questions';
+export { Option, Questions, Question, Answer } from './questions';

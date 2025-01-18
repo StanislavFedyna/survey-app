@@ -12,6 +12,9 @@ import { SCREEN_TYPES } from '@/constansts';
 import { Question } from '@/types';
 
 import styles from './SingleChoice.module.css';
+import { replacePlaceholders } from '@/utils';
+import { useAnswers } from '@/hooks';
+// import getQuestionContent from '@/utils/replacePlaceholders';
 
 interface SingleChoice {
   step: Question;
@@ -27,6 +30,9 @@ export const SingleChoice = ({
   onBack,
 }: SingleChoice) => {
   const { question, subContent, options, id } = step;
+  const answers = useAnswers();
+
+  console.log({ answers });
 
   return (
     <main className={styles.singleChoiceContainer}>

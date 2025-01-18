@@ -1,8 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { Answers } from '@/types';
+import { Answer } from '@/types';
 
-const initialState: Answers = {};
+const initialState: Answer = {};
 
 const answersSlice = createSlice({
   name: 'answers',

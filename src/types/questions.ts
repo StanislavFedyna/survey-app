@@ -8,10 +8,10 @@ export type Question = {
   screenType: string;
   question: string;
   options: Option[];
-  conditions?: Record<string, string>;
+  conditions?: Record<Question['id'], Option['value']>;
   subContent?: string;
 };
 
 export type Questions = Question[];
 
-export type Answers = Record<string, string>;
+export type Answer = Record<Question['id'], Option['value']>;
