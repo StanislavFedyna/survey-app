@@ -5,10 +5,12 @@ import { Question } from '@/types';
 import { InfoScreen, SingleChoice } from '@/components';
 import { SCREEN_TYPES } from '@/constansts';
 
+import questionnaireConfig from '@/config/questionnaireConfig.json';
+
 export const revalidate = 604800;
 
 export async function generateStaticParams() {
-  return questions.map((question) => ({
+  return questionnaireConfig.map((question) => ({
     id: question.id,
   }));
 }
