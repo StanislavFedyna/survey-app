@@ -46,7 +46,7 @@
   },
   {
     "id": "step4",
-    "questions": "Single {gender} {who have children (if have children)} need a slightly different approach to improve their relationship. Which statement best describes you?",
+    "questions": "Single {step1} who have children (if have children) need a slightly different approach to improve their relationship. Which statement best describes you?",
     "conditions": {
       "step2": "step2_op1"
     },
@@ -153,7 +153,7 @@
   },
   {
     "id": "step9",
-    "questions": "{Gender} {who have children (if have children)} need a slightly different approach to find their perfect partner. But first, how did you feel in your last relationship?",
+    "questions": "{step1} who have children (if have children) need a slightly different approach to find their perfect partner. But first, how did you feel in your last relationship?",
     "conditions": {
       "step2": "step2_op2"
     },
@@ -266,7 +266,7 @@
     ]
   },
   {
-    "id": "finalStep",
+    "id": "final-step",
     "questions": "Where did you hear about us?",
     "options": [
       {

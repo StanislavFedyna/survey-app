@@ -1,2 +1,3 @@
 export { areConditionsMet } from './areConditionsMet';
-export { replacePlaceholders } from './replacePlaceholders';
+export { keyBy } from './keyBy';
+export { getQuestionContent } from './getQuestionContent';

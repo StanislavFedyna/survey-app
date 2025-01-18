@@ -1,4 +1,6 @@
 'use client';
+import { RootState } from '@/redux/store';
+import { useSelector } from 'react-redux';
 
 import {
   Title,
@@ -7,44 +9,39 @@ import {
   Header,
   AnimationContainer,
 } from '@/components';
-import { SCREEN_TYPES } from '@/constansts';
-
+import { ANIMATION_KEYS, SCREEN_TYPES } from '@/constansts';
 import { Question } from '@/types';
+import { usePoll } from '@/hooks';
+import { getQuestionContent, keyBy } from '@/utils';
+import { questions } from '@/config';
 
 import styles from './SingleChoice.module.css';
-import { replacePlaceholders } from '@/utils';
-import { useAnswers } from '@/hooks';
-// import getQuestionContent from '@/utils/replacePlaceholders';
 
 interface SingleChoice {
-  step: Question;
-  onNext: (stepId: string, answerValue: string) => void;
-  onBack: () => void;
-  isFirstQuestion: boolean;
+  currentQuestion: Question;
 }
 
-export const SingleChoice = ({
-  step,
-  isFirstQuestion,
-  onNext,
-  onBack,
-}: SingleChoice) => {
-  const { question, subContent, options, id } = step;
-  const answers = useAnswers();
+export const SingleChoice = ({ currentQuestion }: SingleChoice) => {
+  const { proceed, back, isFirstQuestion } = usePoll(currentQuestion.id);
 
-  console.log({ answers });
+  const { question, subContent, options } = currentQuestion;
+  const { answers } = useSelector((state: RootState) => state.answers);
+
+  const flatOptions = questions.flatMap((question) => question?.options);
+  const optionsByValue = keyBy(flatOptions, (o) => o?.value!);
+  const content = getQuestionContent(question, optionsByValue, answers);
 
   return (
     <main className={styles.singleChoiceContainer}>
       <Header
         screenType={SCREEN_TYPES.SINGLE_CHOICE}
         className={styles.header}
-        onBack={onBack}
+        onBack={back}
         showBackIcon={!isFirstQuestion}
       />
-      <AnimationContainer uniqueKey={id}>
+      <AnimationContainer uniqueKey={ANIMATION_KEYS.SINGLE_CHOICE}>
         <section className={styles.contentWrapper}>
-          <Title text={question} type="dark" />
+          <Title text={content} type="dark" />
 
           {subContent && (
             <Subtitle text={subContent} className={styles.subtitle} />
@@ -52,7 +49,7 @@ export const SingleChoice = ({
 
           <div className={styles.options}>
             {options?.map((option, index) => (
-              <Button key={index} onClick={() => onNext(id, option.value)}>
+              <Button key={index} onClick={() => proceed(option.value)}>
                 {option.label}
               </Button>
             ))}

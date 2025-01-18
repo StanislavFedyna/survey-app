@@ -1,3 +1,5 @@
+import { Answers, Option, Question } from '@/types';
+
 /**
  * Checks if all conditions are met based on the provided answers.
  *
@@ -6,8 +8,8 @@
  * @returns {boolean} - Returns true if all conditions are met, otherwise false.
  */
 export const areConditionsMet = (
-  conditions: Record<string, string>,
-  answers: Record<string, string>,
+  conditions: Record<Question['id'], Option['value']>,
+  answers: Answers,
 ) => {
   return Object.keys(conditions).every((k) => conditions[k] === answers[k]);
 };

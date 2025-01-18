@@ -1,34 +1,34 @@
-import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '@/redux/store';
+import { useRouter } from 'next/navigation';
+import { setAnswer, proceed, back, finish } from '@/redux/slices/answersSlice';
 
-import { useAppDispatch } from '@/redux/hooks';
-import { useAnswers } from '@/hooks';
 import { areConditionsMet } from '@/utils';
-import { resetAnswers, setAnswer } from '@/redux/slices/answersSlice';
-import { questions } from '@/app/questions/page';
+import { useEffect } from 'react';
+import { questions } from '@/config';
+import { PAGE_URLS } from '@/constansts';
+import { Option, Question } from '@/types';
 
-/**
- * Custom hook to manage the state and logic of a poll.
- *
- * @returns {object} - An object containing the current step, navigation functions, and poll state.
- */
-export const usePoll = () => {
-  const [prevSteps, setPrevSteps] = useState<number[]>([]);
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [isFinished, setIsFinished] = useState(false);
-  const dispatch = useAppDispatch();
-  const answers = useAnswers();
+export const usePoll = (id: Question['id']) => {
+  const dispatch = useDispatch();
+  const router = useRouter();
+  const { isFinished, answers } = useSelector(
+    (state: RootState) => state.answers,
+  );
 
-  const isFirstQuestion = currentIndex === 0;
+  const questionIndex = questions.findIndex((q) => q.id === id);
 
-  const proceed = (stepId: string, answerValue: string) => {
-    setPrevSteps((p) => [...p, currentIndex]);
+  useEffect(() => {
+    if (isFinished) router.push(PAGE_URLS.RESULTS);
+  }, [isFinished, router]);
 
-    const newAnswers = { ...answers, [stepId]: answerValue };
+  const handleProceed = (answerValue: Option['value']) => {
+    const newAnswers = { ...answers, [id]: answerValue };
 
-    const nextIndex = questions.findIndex((question, i) => {
-      const { conditions } = question;
+    const nextIndex = questions.findIndex((q, i) => {
+      const { conditions } = q;
 
-      if (i <= currentIndex) {
+      if (i <= questionIndex) {
         return false;
       }
 
@@ -36,38 +36,28 @@ export const usePoll = () => {
     });
 
     if (nextIndex === -1) {
-      setIsFinished(true);
+      dispatch(finish());
+    } else {
+      dispatch(proceed(nextIndex));
+
+      router.push(PAGE_URLS.QUESTIONS(questions[nextIndex].id));
     }
 
-    setCurrentIndex(nextIndex);
-    dispatch(setAnswer({ stepId, answerValue }));
+    dispatch(setAnswer({ stepId: id, answerValue }));
   };
 
-  const back = () => {
-    const lastIndex = prevSteps.at(-1);
+  const handleBack = () => {
+    if (questionIndex > 0) {
+      dispatch(back());
 
-    if (lastIndex !== undefined) {
-      setCurrentIndex(lastIndex);
-      setPrevSteps((p) => p.slice(0, -1));
+      router.push(PAGE_URLS.QUESTIONS(questions[questionIndex - 1].id));
     }
   };
-
-  const reset = () => {
-    setPrevSteps([]);
-    setCurrentIndex(0);
-    setIsFinished(false);
-    dispatch(resetAnswers());
-  };
-
-  const getAnswer = (stepId: string) => answers[stepId];
 
   return {
-    currentStep: questions[currentIndex],
-    isFirstQuestion,
+    isFirstQuestion: questionIndex === 0,
     isFinished,
-    getAnswer,
-    proceed,
-    back,
-    reset,
+    proceed: handleProceed,
+    back: handleBack,
   };
 };

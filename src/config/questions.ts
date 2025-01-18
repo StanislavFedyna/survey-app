@@ -1,11 +1,4 @@
-'use client';
-
-import React from 'react';
-
 import { Questions } from '@/types';
-import { SCREEN_TYPES } from '@/constansts';
-import { InfoScreen, Results, SingleChoice } from '@/components';
-import { usePoll } from '@/hooks';
 
 export const questions: Questions = [
   {
@@ -62,7 +55,7 @@ export const questions: Questions = [
     id: 'step4',
     screenType: 'single-choice',
     question:
-      'Single {gender} {who have children (if have children)} need a slightly different approach to improve their relationship. Which statement best describes you?',
+      'Single {step1} who have children (if have children) need a slightly different approach to improve their relationship. Which statement best describes you?',
     conditions: {
       step2: 'step2_op1',
     },
@@ -195,7 +188,7 @@ export const questions: Questions = [
     id: 'step9',
     screenType: 'single-choice',
     question:
-      '{Gender} {who have children (if have children)} need a slightly different approach to find their perfect partner. But first, how did you feel in your last relationship?',
+      '{step1} who have children (if have children) need a slightly different approach to find their perfect partner. But first, how did you feel in your last relationship?',
     conditions: {
       step2: 'step2_op2',
     },
@@ -313,7 +306,7 @@ export const questions: Questions = [
     ],
   },
   {
-    id: 'finalStep',
+    id: 'final-step',
     screenType: 'single-choice',
     question: 'Where did you hear about us?',
     options: [
@@ -384,29 +377,3 @@ export const questions: Questions = [
     ],
   },
 ];
-
-const Page = () => {
-  const { currentStep, proceed, back, isFinished, reset, isFirstQuestion } =
-    usePoll();
-
-  if (isFinished) return <Results onReset={reset} />;
-
-  if (currentStep.screenType === SCREEN_TYPES.SINGLE_CHOICE) {
-    return (
-      <SingleChoice
-        step={currentStep}
-        isFirstQuestion={isFirstQuestion}
-        onNext={proceed}
-        onBack={back}
-      />
-    );
-  }
-
-  if (currentStep.screenType === SCREEN_TYPES.INFORMATION) {
-    return <InfoScreen step={currentStep} onNext={proceed} onBack={back} />;
-  }
-
-  return <div>Oops, something went wrong 😔</div>;
-};
-
-export default Page;

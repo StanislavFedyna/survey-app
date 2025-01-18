@@ -10,8 +10,9 @@ export type Question = {
   options: Option[];
   conditions?: Record<Question['id'], Option['value']>;
   subContent?: string;
+  dependencyAnswer?: string[];
 };
 
 export type Questions = Question[];
 
-export type Answer = Record<Question['id'], Option['value']>;
+export type Answers = Record<Question['id'], Option['value']>;
