@@ -37,7 +37,7 @@ export const SingleChoice = ({
         showBackIcon={!isFirstQuestion}
       />
       <AnimationContainer uniqueKey={id}>
-        <div className={styles.contentWrapper}>
+        <section className={styles.contentWrapper}>
           <Title text={question} type="dark" />
 
           {subContent && (
@@ -51,7 +51,7 @@ export const SingleChoice = ({
               </Button>
             ))}
           </div>
-        </div>
+        </section>
       </AnimationContainer>
     </main>
   );

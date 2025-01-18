@@ -18,7 +18,7 @@ export const Header = ({
   screenType,
   className,
   onBack,
-  showBackIcon,
+  showBackIcon = true,
 }: HeaderProps) => (
   <header className={clsx(styles.header, className)}>
     {showBackIcon && (

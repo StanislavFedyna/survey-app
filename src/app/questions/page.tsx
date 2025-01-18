@@ -403,8 +403,10 @@ const Page = () => {
   }
 
   if (currentStep.screenType === SCREEN_TYPES.INFORMATION) {
-    return <InfoScreen step={currentStep} />;
+    return <InfoScreen step={currentStep} onNext={proceed} onBack={back} />;
   }
+
+  return <div>Oops, something went wrong 😔</div>;
 };
 
 export default Page;

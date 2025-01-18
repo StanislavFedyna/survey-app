@@ -21,22 +21,4 @@
   margin-bottom: 2rem;
 }
 
-.answerItem {
-  display: flex;
-  justify-content: space-between;
-  padding: 1rem;
-  border-bottom: 1px solid #ccc;
-}
 
-.question {
-  font-size: 1.6rem;
-  font-weight: var(--fw-700);
-  flex: 1;
-}
-
-.answer {
-  font-size: 1.6rem;
-  color: #555;
-  flex: 1;
-  text-align: right;
-}
