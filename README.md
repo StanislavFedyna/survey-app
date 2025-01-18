@@ -6,6 +6,7 @@ The project demonstrates a dynamic survey system that navigates between question
 - [Getting Started](#getting-started)
 - [Technologies Used](#technologies-used)
 - [File Structure](#file-structure)
+- [Running the Production Environment](#run-the-production-environment)
 
 ## Getting Started
 
@@ -34,6 +35,20 @@ bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+## Run the production Environment
+
+
+To run the production environment, follow these steps:
+1. Build the project:
+```bash
+npm run build
+```
+
+2. Start the production server:
+```bash
+npm start
+```
 
 ## Technologies Used
 
