@@ -1,22 +1,23 @@
 import React from 'react';
 
-import { questions } from '@/config';
 import { Question } from '@/types';
 import { InfoScreen, SingleChoice } from '@/components';
 import { SCREEN_TYPES } from '@/constansts';
 
 import questionnaireConfig from '@/config/questionnaireConfig.json';
 
-export const revalidate = 604800;
+interface StaticParams {
+  id: string;
+}
 
-export async function generateStaticParams() {
+export async function generateStaticParams(): Promise<StaticParams[]> {
   return questionnaireConfig.map((question) => ({
     id: question.id,
   }));
 }
 
-async function getQuestion(id: string): Promise<Question> {
-  return questions.find((q) => q.id === id) as Question;
+async function getCurrentQuestionById(id: string): Promise<Question> {
+  return questionnaireConfig.find((q) => q.id === id) as Question;
 }
 
 interface QuestionsPage {
@@ -25,7 +26,7 @@ interface QuestionsPage {
 
 export default async function QuestionsPage({ params }: QuestionsPage) {
   const { id } = await params;
-  const question = await getQuestion(id);
+  const question = await getCurrentQuestionById(id);
 
   if (question.screenType === SCREEN_TYPES.SINGLE_CHOICE) {
     return <SingleChoice currentQuestion={question} />;

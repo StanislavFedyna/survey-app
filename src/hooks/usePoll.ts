@@ -1,11 +1,11 @@
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '@/redux/store';
 import { useRouter } from 'next/navigation';
 import { setAnswer, proceed, back, finish } from '@/redux/slices/answersSlice';
 
 import { areConditionsMet } from '@/utils';
-import { useEffect } from 'react';
-import { questions } from '@/config';
+import { RootState } from '@/redux/store';
+import questionnaireConfig from '@/config/questionnaireConfig.json';
 import { PAGE_URLS } from '@/constansts';
 import { Option, Question } from '@/types';
 
@@ -16,7 +16,7 @@ export const usePoll = (id: Question['id']) => {
     (state: RootState) => state.answers,
   );
 
-  const questionIndex = questions.findIndex((q) => q.id === id);
+  const questionIndex = questionnaireConfig.findIndex((q) => q.id === id);
 
   useEffect(() => {
     if (isFinished) router.push(PAGE_URLS.RESULTS);
@@ -25,7 +25,7 @@ export const usePoll = (id: Question['id']) => {
   const handleProceed = (answerValue: Option['value']) => {
     const newAnswers = { ...answers, [id]: answerValue };
 
-    const nextIndex = questions.findIndex((q, i) => {
+    const nextIndex = questionnaireConfig.findIndex((q, i) => {
       const { conditions } = q;
 
       if (i <= questionIndex) {
@@ -40,7 +40,7 @@ export const usePoll = (id: Question['id']) => {
     } else {
       dispatch(proceed(nextIndex));
 
-      router.push(PAGE_URLS.QUESTIONS(questions[nextIndex].id));
+      router.push(PAGE_URLS.QUESTIONS(questionnaireConfig[nextIndex].id));
     }
 
     dispatch(setAnswer({ stepId: id, answerValue }));
@@ -50,7 +50,9 @@ export const usePoll = (id: Question['id']) => {
     if (questionIndex > 0) {
       dispatch(back());
 
-      router.push(PAGE_URLS.QUESTIONS(questions[questionIndex - 1].id));
+      router.push(
+        PAGE_URLS.QUESTIONS(questionnaireConfig[questionIndex - 1].id),
+      );
     }
   };
 

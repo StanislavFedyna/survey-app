@@ -3,9 +3,9 @@
 import { AnimationContainer, Button, Header, Title } from '@/components';
 import { Question } from '@/types';
 import { usePoll } from '@/hooks';
+import { ANIMATION_KEYS } from '@/constansts';
 
 import styles from './InfoScreen.module.css';
-import { ANIMATION_KEYS } from '@/constansts';
 
 interface InfoScreenProps {
   currentQuestion: Question;

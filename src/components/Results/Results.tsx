@@ -5,7 +5,7 @@ import { redirect } from 'next/navigation';
 
 import { AnimationContainer, Button } from '@/components';
 import { keyBy, getQuestionContent } from '@/utils';
-import { questions } from '@/config';
+import questionnaireConfig from '@/config/questionnaireConfig.json';
 import { ANIMATION_KEYS, DEFAULT_QUESTION, PAGE_URLS } from '@/constansts';
 import { resetAnswers } from '@/redux/slices/answersSlice';
 
@@ -17,15 +17,18 @@ export const Results = () => {
   const { answers } = useSelector((state: RootState) => state.answers);
   const dispatch = useDispatch();
 
-  const filteredQuestions = questions.filter(
+  const filteredQuestions = questionnaireConfig.filter(
     (question) => answers[question.id],
   );
 
-  const flatOptions = questions.flatMap((question) => question?.options);
+  const flatOptions = questionnaireConfig.flatMap(
+    (question) => question?.options,
+  );
   const optionsByValue = keyBy(flatOptions, (o) => o?.value!);
 
   const handleReset = () => {
     dispatch(resetAnswers());
+
     redirect(PAGE_URLS.QUESTIONS(DEFAULT_QUESTION));
   };
 

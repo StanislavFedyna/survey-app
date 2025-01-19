@@ -13,7 +13,7 @@ import { ANIMATION_KEYS, SCREEN_TYPES } from '@/constansts';
 import { Question } from '@/types';
 import { usePoll } from '@/hooks';
 import { getQuestionContent, keyBy } from '@/utils';
-import { questions } from '@/config';
+import questionnaireConfig from '@/config/questionnaireConfig.json';
 
 import styles from './SingleChoice.module.css';
 
@@ -27,7 +27,9 @@ export const SingleChoice = ({ currentQuestion }: SingleChoice) => {
   const { question, subContent, options } = currentQuestion;
   const { answers } = useSelector((state: RootState) => state.answers);
 
-  const flatOptions = questions.flatMap((question) => question?.options);
+  const flatOptions = questionnaireConfig.flatMap(
+    (question) => question?.options,
+  );
   const optionsByValue = keyBy(flatOptions, (o) => o?.value!);
   const content = getQuestionContent(question, optionsByValue, answers);
 
